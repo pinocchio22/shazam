@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 
 void main() {
   runApp(const MyApp());
@@ -119,8 +118,151 @@ class FirstTab extends StatelessWidget {
       },
     ];
 
-    return const SafeArea(
-      child: Text('첫번째 페이지'),
+    return SafeArea(
+      child: Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Stack(
+            alignment: Alignment.topCenter,
+            children: [
+              Text(
+                "라이브러리",
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.settings,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(thickness: 0.3, height: 1, color: Colors.grey),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        ImageIcon(NetworkImage(
+                            "https://i.ibb.co/hxNbZ8p/shazam.png")),
+                        SizedBox(width: 12),
+                        Text(
+                          "Shazam",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                  ),
+                  Divider(thickness: 0.3, height: 1, color: Colors.grey),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Icon(Icons.person),
+                        SizedBox(width: 12),
+                        Text(
+                          "아티스트",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                  ),
+                  Divider(thickness: 0.3, height: 1, color: Colors.grey),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Icon(Icons.music_note),
+                        SizedBox(width: 12),
+                        Text(
+                          "회원님을 위한 재생 목록",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "최근 Shazam",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                  SizedBox(height: 16),
+                  Expanded(
+                    child: GridView.count(
+                      crossAxisCount: 2,
+                      childAspectRatio: 3 / 5,
+                      children: List.generate(songs.length, (index) {
+                        String imageUrl = songs[index]['imageUrl']!;
+                        String title = songs[index]['title']!;
+                        String artist = songs[index]['artist']!;
+                        return Container(
+                          margin: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                blurRadius: 0.5,
+                                spreadRadius: 2,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(8),
+                                  topRight: Radius.circular(8),
+                                ),
+                                child: Image.network(
+                                  imageUrl,
+                                  fit: BoxFit.cover,
+                                  height: MediaQuery.of(context).size.width *
+                                      0.5 *
+                                      5 /
+                                      3 *
+                                      0.48,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5.0),
+                                child: Text(
+                                  title,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5.0),
+                                child: Text(artist),
+                              ),
+                              Spacer(),
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Image.network(
+                                  "https://i.ibb.co/KG9m5QS/applemusic.png",
+                                  width: 60,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          )),
     );
   }
 }
