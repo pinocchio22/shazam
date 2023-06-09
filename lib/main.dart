@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 
 void main() {
   runApp(const MyApp());
@@ -291,52 +292,222 @@ class ThirdTab extends StatelessWidget {
     return SafeArea(
       child: Column(
         children: [
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "차트",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                  ),
-                ),
+          Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Text(
+              "차트",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
               ),
-              Container(
-                width: double.infinity,
-                height: 180,
-                color: Colors.purple.shade900,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+            ),
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                Column(
                   children: [
                     Container(
-                      width: 300,
-                      child: TextButton(
-                        onPressed: () {},
-                        style: TextButton.styleFrom(
-                          backgroundColor: Colors.white,
-                        ),
-                        child: Text(
-                          '국가 및 도시별 차트',
-                          style: TextStyle(
-                            color: Colors.purple.shade900,
+                      width: double.infinity,
+                      height: 180,
+                      color: Colors.purple.shade900,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 300,
+                            child: TextButton(
+                              onPressed: () {},
+                              style: TextButton.styleFrom(
+                                backgroundColor: Colors.white,
+                              ),
+                              child: Text(
+                                '국가 및 도시별 차트',
+                                style: TextStyle(
+                                  color: Colors.purple.shade900,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
                           ),
+                          SizedBox(height: 10),
+                          Text(
+                            "전세계",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 8,
+                      color: Colors.grey[400],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 4.0, left: 8.0, right: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "대한민국 차트",
+                          ),
+                          Text(
+                            "모두보기",
+                            style: TextStyle(
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        ...chartData['korea']!.map(
+                          (e) {
+                            String imageUrl = e['imageUrl']!;
+                            String name = e['name']!;
+                            String artist = e['artist']!;
+
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.network(
+                                    imageUrl,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.29,
+                                  ),
+                                  Text(
+                                    name,
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(artist),
+                                ],
+                              ),
+                            );
+                          },
                         ),
+                      ],
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 8,
+                      color: Colors.grey[400],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 4.0, left: 8.0, right: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "글로벌 차트",
+                          ),
+                          Text(
+                            "모두보기",
+                            style: TextStyle(
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Text(
-                      "전세계",
-                      style: TextStyle(
-                        color: Colors.white,
+                    Row(
+                      children: [
+                        ...chartData['global']!.map(
+                          (e) {
+                            String imageUrl = e['imageUrl']!;
+                            String name = e['name']!;
+                            String artist = e['artist']!;
+
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.network(
+                                    imageUrl,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.29,
+                                  ),
+                                  Text(
+                                    name,
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(artist),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 8,
+                      color: Colors.grey[400],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 4.0, left: 8.0, right: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "뉴욕 차트",
+                          ),
+                          Text(
+                            "모두보기",
+                            style: TextStyle(
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
+                    Row(
+                      children: [
+                        ...chartData['newyork']!.map(
+                          (e) {
+                            String imageUrl = e['imageUrl']!;
+                            String name = e['name']!;
+                            String artist = e['artist']!;
+
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.network(
+                                    imageUrl,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.29,
+                                  ),
+                                  Text(
+                                    name,
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(artist),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    )
                   ],
-                ),
-              ),
-            ],
+                )
+              ],
+            ),
           ),
-          Text("here")
         ],
       ),
     );
